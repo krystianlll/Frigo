@@ -1,0 +1,53 @@
+﻿.note {
+    display: block;
+    width: 350px;
+    height: 400px;
+    border: 1px solid black;
+    border-radius: 2px;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(130,130,130,1);
+}
+
+.note .body{
+    padding: 15px;
+    height: calc( 100% - 41px - 30px ); /* 30 is for padding, 40 for footer, 1 for border*/
+    overflow: auto;
+}
+
+.note .footer {
+    border-top: 1px solid black;
+    position: absolute;
+    bottom: 0px;
+    height: 40px;
+    width: 100%;
+}
+.note .footer img {
+    height: 28px;
+    margin-top: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    float: right;
+
+    cursor: pointer;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+not supported by any browser */
+
+}
+
+.note.active {
+    z-index: 2;
+    box-shadow: 0px 14px 50px 0px rgba(130,130,130,1);
+}
+
+.note.active .footer {
+    /* background-color: rgb(220, 94, 136);*/
+    /*background-color: #d23f31;*/
+    background-color: #4285f4;
+}

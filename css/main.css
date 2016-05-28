@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    height: 100%;
+}
+
+.btn {
+    padding: 5px;
+    border-radius: 3px;
+    background-color: yellowgreen;
+    border: 1px solid black;
+}
+
+.btn:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+}
+
+.btn:focus, .btn:active {
+    outline: none;
+}
+
+.hide-me {
+    display: none;
+}
+
+#statystyki {
+    padding: 20px;
+}
+
+#veil {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /*display: none;*/
+    z-index: 3;
+}
+
+#veil #choose-room {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#veil #choose-room input {
+    display: block;
+    width: 90%;
+    margin-left: 5%;
+    line-height: 40px;
+    font-size: 35px;
+    text-align: center;
+}
+
+#veil #choose-room .button {
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+}
+
+#veil #edit-container {
+    width: 700px;
+    height: 600px;
+    position: absolute;
+    top: calc( 50% - 350px );
+    left: calc( 50% - 350px );
+    display: none;
+}
+
+#veil #edit-container .btn {
+    font-size: larger;
+}
+
+#veil #edit-container textarea {
+    width: 100%;
+    min-height: 500px;
+}
+
+#new-note-btn {
+    margin-left: 20px;
+}

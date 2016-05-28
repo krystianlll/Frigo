@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Frigo</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/note.css" />
+    <link rel="stylesheet" href="css/MaterialDesignButton.css" />
+
+    <script src="js/main.js"></script>
+    <script src="js/Note.js"></script>
+
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+</head>
+<body>
+    <p id="statystyki">Przebieg: <span id="przebieg">0</span><br />
+        Obecnie: <span id="obecnie">0</span><br /><br />
+        <!--<button id="new-note-btn" class="btn">Stwórz nową notkę</button>-->
+
+    </p>
+
+    <div id="new-note-btn" class="button raised blue">
+        <div class="center" fit>NOWA NOTKA</div>
+        <paper-ripple fit></paper-ripple>
+    </div>
+
+    <div id="veil">
+        <div id="edit-container">
+            <textarea></textarea><br />
+            <!--<button id="edit-accept" class="btn">Zapisz</button>
+            <button id="edit-cancel" class="btn">Anuluj</button>-->
+            <div id="edit-accept" class="button raised blue">
+                <div class="center" fit>ZAPISZ</div>
+                <paper-ripple fit></paper-ripple>
+            </div>
+            <div id="edit-cancel" class="button raised blue">
+                <div class="center" fit>ANULUJ</div>
+                <paper-ripple fit></paper-ripple>
+            </div>
+        </div>
+        <div id="choose-room">
+            <input placeholder="Room name" id="room-name" />
+            <div id="room-accept" class="button raised blue">
+                <div class="center" fit>ENTER</div>
+                <paper-ripple fit></paper-ripple>
+            </div>
+        </div>
+    </div>
+
+    <div class="hide-me">
+        <img src="media/delete.png" />
+        <img src="media/edit.png" />
+        <img src="media/resize.png" />
+    </div>
+</body>
+</html>
