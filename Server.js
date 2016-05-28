@@ -2,28 +2,31 @@
 var fs = require('fs')
 var qs = require('querystring')
 
+var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
+    port = process.env.OPENSHIFT_NODEJS_PORT || '8080'
+
 var oServer = http.createServer(HandleRequest)
-oServer.listen(3000)
+oServer.listen(port, ip)
 
 function HandleRequest(A_oReq, A_oRes) {
     if (/^\/$/i.test(A_oReq.url)) {
-        ReadFile('../index.html', 'text/html')
+        ReadFile('index.html', 'text/html')
     } else if (/js\/main.js/i.test(A_oReq.url)) {
-        ReadFile('../js/main.js', 'application/javascript')
+        ReadFile('js/main.js', 'application/javascript')
     } else if (/js\/Note.js/i.test(A_oReq.url)) {
-        ReadFile('../js/Note.js', 'application/javascript')
+        ReadFile('js/Note.js', 'application/javascript')
     } else if (/css\/note.css/i.test(A_oReq.url)) {
-        ReadFile('../css/note.css', 'text/css')
+        ReadFile('css/note.css', 'text/css')
     } else if (/css\/main.css/i.test(A_oReq.url)) {
-        ReadFile('../css/main.css', 'text/css')
+        ReadFile('css/main.css', 'text/css')
     } else if (/css\/MaterialDesignButton.css/i.test(A_oReq.url)) {
-        ReadFile('../css/MaterialDesignButton.css', 'text/css')
+        ReadFile('css/MaterialDesignButton.css', 'text/css')
     } else if (/media\/delete.png/i.test(A_oReq.url)) {
-        ReadFile('../media/delete.png', 'image/png')
+        ReadFile('media/delete.png', 'image/png')
     } else if (/media\/edit.png/i.test(A_oReq.url)) {
-        ReadFile('../media/edit.png', 'image/png')
+        ReadFile('media/edit.png', 'image/png')
     } else if (/media\/resize.png/i.test(A_oReq.url)) {
-        ReadFile('../media/resize.png', 'image/png')
+        ReadFile('media/resize.png', 'image/png')
     }  else if (/initial_data_request/i.test(A_oReq.url)) {
         var body = ''
         A_oReq.on('data', function (data) { body += data })

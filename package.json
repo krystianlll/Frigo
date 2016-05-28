@@ -1,0 +1,13 @@
+{
+  "name": "frigo",
+  "scripts": {
+    "start": "node Server.js"
+  },
+  "main": "Server.js",
+  "version": "0.01",
+  "dependencies": {
+    "querystring": "^0.2.0",
+    "fs": "^0.0.2",
+    "http": "^0.0.0"
+  }
+}
