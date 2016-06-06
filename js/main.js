@@ -85,7 +85,7 @@ function FetchInitialData() {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var response = JSON.parse(xhttp.responseText)
-            console.log(response)
+
             for (var i = 0; i < response.notes.length; i++) {
                 $G.notes.push( new Note(response.notes[i]) )
             }

@@ -10,7 +10,6 @@
             height: 400,
             x: (innerWidth - 350) / 2,
             y: (innerHeight - 400) / 2,
-            setZIndex: setZIndex,
             container: null,
             content: '',
             JSONExport: JSONExport,
@@ -22,7 +21,6 @@
             height: oImportData.height,
             x: oImportData.x,
             y: oImportData.y,
-            setZIndex: setZIndex,
             container: null,
             content: oImportData.content,
             JSONExport: JSONExport,
@@ -138,6 +136,11 @@
         el.addEventListener('mousedown', function () {
             setAllNotesNotActive()
             el.className += ' active'
+
+            //magick trick:
+            parent = el.parentNode
+            el.parentNode.removeChild(el)
+            parent.appendChild(el)
         })
 
         // append main note DIV to body
@@ -186,14 +189,6 @@
                 o.height += A_oE.clientY - initialPos.y
                 initialPos.y = A_oE.clientY
             }
-        }
-    }
-
-    function setZIndex(A_sOption) {
-        if (A_sOption == 'lower') {
-            handlers.noteContainer.style.zIndex = 1
-        } else if (A_sOption == 'higher') {
-            handlers.noteContainer.style.zIndex = 2
         }
     }
 
