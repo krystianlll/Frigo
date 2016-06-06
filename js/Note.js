@@ -133,14 +133,16 @@
         el.appendChild(footer)
 
         // active note
-        el.addEventListener('mousedown', function () {
+        el.addEventListener('mousedown', function (e) {
             setAllNotesNotActive()
             el.className += ' active'
 
-            //magick trick:
-            parent = el.parentNode
-            el.parentNode.removeChild(el)
-            parent.appendChild(el)
+            if (e.target.tagName.toLocaleLowerCase() != 'img') {
+                //magick trick:
+                parent = el.parentNode
+                el.parentNode.removeChild(el)
+                parent.appendChild(el)
+            }
         })
 
         // append main note DIV to body
