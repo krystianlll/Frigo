@@ -186,7 +186,6 @@
 
         if ($G.selectedNotes.length > 1 && !bIsResized) {
             // multidrag
-            console.log('me')
             for (var i = 0; i < $G.selectedNotes.length; i++) {
                 note = $G.selectedNotes[i]
                 note.container.style.top = note.y + A_oE.clientY - initialPos.y + 'px'

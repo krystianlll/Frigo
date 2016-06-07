@@ -89,13 +89,13 @@
                 topLeftPos.y = initMousePos.y + sizeY
                 el.style.top = initMousePos.y + sizeY + 'px'
             }
-            //console.log(size.x)
         }
 
         function CheckCollisions() {
             var note, selectedNotes = []
-            for (var i = 0; i < $G.notes.length; i++) {
-                note = $G.notes[i]
+            var list = document.querySelectorAll('body > .note')
+            for (var i = 0; i < list.length; i++) {
+                note = list[i].object
 
                 if (Math.abs(size.x) - note.width - Math.abs(topLeftPos.x - note.x) > 0 &&
                     Math.abs(size.y) - note.height - Math.abs(topLeftPos.y - note.y) > 0 &&
