@@ -13,6 +13,8 @@
             container: null,
             content: '',
             JSONExport: JSONExport,
+            movementHandler: HandleMovement,
+            uploadNoteData: UploadNoteData,
         }
     } else {
         var o = {
@@ -24,6 +26,8 @@
             container: null,
             content: oImportData.content,
             JSONExport: JSONExport,
+            movementHandler: HandleMovement,
+            uploadNoteData: UploadNoteData,
         }
     }
     var bIsDragged = false
@@ -53,6 +57,7 @@
         el.style.left = o.x + 'px'
         el.style.width = o.width + 'px'
         el.style.height = o.height + 'px'
+        el.object = o
 
         // create body
         handlers.body = document.createElement('div')
@@ -66,13 +71,6 @@
         footer.setAttribute('title', 'id: ' + o.id)
 
         // moving note
-        /*
-        handlers.move = document.createElement('img')
-        handlers.move.src = 'media/move.png'
-        handlers.move.setAttribute('draggable', 'false')
-        handlers.move.style.cursor = 'move'
-        footer.appendChild(handlers.move)
-        */
         handlers.body.addEventListener('mousedown', function () {
             bIsDragged = true
             window.addEventListener('mousemove', HandleMovement)
@@ -82,14 +80,19 @@
                 initialPos = null
                 window.removeEventListener('mousemove', HandleMovement)
                 bIsDragged = false
-                UploadNoteData('pos')
+                if ($G.selectedNotes.length > 1) { // multidrag
+                    for (var i = 0; i < $G.selectedNotes.length; i++)
+                        $G.selectedNotes[i].uploadNoteData('pos')
+                } else {
+                    UploadNoteData('pos')
+                }
             }
         })
 
         // resizing note
         handlers.resize = document.createElement('img')
         handlers.resize.src = 'media/resize.png'
-        //handlers.resize.setAttribute('draggable', 'false')
+        handlers.resize.setAttribute('draggable', 'false')
         handlers.resize.addEventListener('mousedown', function (e) { e.preventDefault() })
         handlers.resize.style.cursor = 'se-resize'
         footer.appendChild(handlers.resize)
@@ -109,7 +112,7 @@
         // delete
         handlers.del = document.createElement('img')
         handlers.del.src = 'media/delete.png'
-        //handlers.del.setAttribute('draggable', 'false')
+        handlers.del.setAttribute('draggable', 'false')
         handlers.del.addEventListener('mousedown', function (e) { e.preventDefault() })
         footer.appendChild(handlers.del)
         handlers.del.addEventListener('click', function () {
@@ -124,7 +127,7 @@
         // edit
         handlers.edit = document.createElement('img')
         handlers.edit.src = 'media/edit.png'
-        //handlers.edit.setAttribute('draggable', 'false')
+        handlers.edit.setAttribute('draggable', 'false')
         handlers.edit.addEventListener('mousedown', function (e) { e.preventDefault() })
         footer.appendChild(handlers.edit)
         handlers.edit.addEventListener('click', HandleEdit)
@@ -134,8 +137,20 @@
 
         // active note
         el.addEventListener('mousedown', function (e) {
-            setAllNotesNotActive()
-            el.className += ' active'
+            if ($G.selectedNotes.length <= 1) {
+                $G.selectedNotes = [o]
+                setAllNotesNotActive()
+                el.className += ' active'
+            } else { // few notes selected
+                if (el.classList.contains('active')) { // mousedown on active, do nothing
+
+                } else { // mousemove on not active, activate it
+                    $G.selectedNotes = [o]
+                    setAllNotesNotActive()
+                    el.className += ' active'
+                }
+
+            }
 
             if (e.target.tagName.toLocaleLowerCase() != 'img') {
                 //magick trick:
@@ -168,28 +183,47 @@
                 y: A_oE.clientY,
             }
         }
-        if (bIsDragged) {
-            handlers.noteContainer.style.top = o.y + A_oE.clientY - initialPos.y + 'px'
-            handlers.noteContainer.style.left = o.x + A_oE.clientX - initialPos.x + 'px'
 
-            o.y += A_oE.clientY - initialPos.y
-            o.x += A_oE.clientX - initialPos.x
+        if ($G.selectedNotes.length > 1 && !bIsResized) {
+            // multidrag
+            console.log('me')
+            for (var i = 0; i < $G.selectedNotes.length; i++) {
+                note = $G.selectedNotes[i]
+                note.container.style.top = note.y + A_oE.clientY - initialPos.y + 'px'
+                note.container.style.left = note.x + A_oE.clientX - initialPos.x + 'px'
 
+                note.y += A_oE.clientY - initialPos.y
+                note.x += A_oE.clientX - initialPos.x
+            }
             initialPos = {
                 x: A_oE.clientX,
                 y: A_oE.clientY,
             }
-        }
-        if (bIsResized) {
-            if (o.width + A_oE.clientX - initialPos.x >= 200) {
-                handlers.noteContainer.style.width = o.width + A_oE.clientX - initialPos.x + 'px'
-                o.width += A_oE.clientX - initialPos.x
-                initialPos.x = A_oE.clientX
+        } else {
+
+            if (bIsDragged) {
+                handlers.noteContainer.style.top = o.y + A_oE.clientY - initialPos.y + 'px'
+                handlers.noteContainer.style.left = o.x + A_oE.clientX - initialPos.x + 'px'
+
+                o.y += A_oE.clientY - initialPos.y
+                o.x += A_oE.clientX - initialPos.x
+
+                initialPos = {
+                    x: A_oE.clientX,
+                    y: A_oE.clientY,
+                }
             }
-            if (o.height + A_oE.clientY - initialPos.y >= 200) {
-                handlers.noteContainer.style.height = o.height + A_oE.clientY - initialPos.y + 'px'
-                o.height += A_oE.clientY - initialPos.y
-                initialPos.y = A_oE.clientY
+            if (bIsResized) {
+                if (o.width + A_oE.clientX - initialPos.x >= 200) {
+                    handlers.noteContainer.style.width = o.width + A_oE.clientX - initialPos.x + 'px'
+                    o.width += A_oE.clientX - initialPos.x
+                    initialPos.x = A_oE.clientX
+                }
+                if (o.height + A_oE.clientY - initialPos.y >= 200) {
+                    handlers.noteContainer.style.height = o.height + A_oE.clientY - initialPos.y + 'px'
+                    o.height += A_oE.clientY - initialPos.y
+                    initialPos.y = A_oE.clientY
+                }
             }
         }
     }

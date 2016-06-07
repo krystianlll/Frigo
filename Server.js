@@ -15,12 +15,16 @@ function HandleRequest(A_oReq, A_oRes) {
         ReadFile('js/main.js', 'application/javascript')
     } else if (/js\/Note.js/i.test(A_oReq.url)) {
         ReadFile('js/Note.js', 'application/javascript')
+    } else if (/js\/Selection.js/i.test(A_oReq.url)) {
+        ReadFile('js/Selection.js', 'application/javascript')
     } else if (/css\/note.css/i.test(A_oReq.url)) {
         ReadFile('css/note.css', 'text/css')
     } else if (/css\/main.css/i.test(A_oReq.url)) {
         ReadFile('css/main.css', 'text/css')
     } else if (/css\/MaterialDesignButton.css/i.test(A_oReq.url)) {
         ReadFile('css/MaterialDesignButton.css', 'text/css')
+    } else if (/css\/selection.css/i.test(A_oReq.url)) {
+        ReadFile('css/selection.css', 'text/css')
     } else if (/media\/delete.png/i.test(A_oReq.url)) {
         ReadFile('media/delete.png', 'image/png')
     } else if (/media\/edit.png/i.test(A_oReq.url)) {

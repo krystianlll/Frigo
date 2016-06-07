@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 html {
@@ -11,6 +15,7 @@ html {
 body {
     position: relative;
     height: 100%;
+    overflow: hidden;
 }
 
 .btn {
@@ -35,6 +40,7 @@ body {
 
 #statystyki {
     padding: 20px;
+    width: 200px;
 }
 
 #veil {

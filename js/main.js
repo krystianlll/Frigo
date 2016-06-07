@@ -11,6 +11,8 @@ function Ready() {
     $G.dEditCancel = document.getElementById('edit-cancel')
     $G.dEditBox = document.getElementById('edit-container')
 
+    var selectionHandler = new Selection()
+
     document.getElementById('room-accept').addEventListener('click', function () {
         var roomName = document.getElementById('room-name').value
         if (roomName.length) {
@@ -62,6 +64,8 @@ $G = {
     dEditAccept: null,
     dEditBox: null,
     nActiveNetworkOperations: 0,
+    fewActive: false,
+    selectedNotes: [],
 }
 
 function setAllNotesNotActive() {
@@ -69,7 +73,8 @@ function setAllNotesNotActive() {
         if ($G.notes[i].container.className.indexOf('active') != -1) {
             $G.notes[i].container.className = $G.notes[i].container.className.replace('active', '').trim()
         }
-            
+        //$G.fewActive = false
+        $G.selectedNotes = []
     }
 }
 
